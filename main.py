@@ -1,6 +1,10 @@
 import json
+from ai_response import show_suggestions
 
-
+red = "\033[31;1m"
+yellow = "\033[33;1m"
+green = "\033[32;1m"
+reset = "\033[0m"
 
 def load_ticket(tickets):
     try:
@@ -22,20 +26,24 @@ def save_ticket(tickets):
 def Create_Tickets():
     ticket = []
     while True:
-         T_id = input("Input Ticket_ID   ").lower()
+         T_id = input(f"{yellow}Input Ticket_ID{reset}   ").lower()
          if T_id.strip() == "":
-            print("Empty Id: Input your ticket id\n")
+            print(f"{yellow}Empty Id: Input your ticket id{reset}\n")
             continue
-         T_description = input("\nDescribe Your Problem  ").lower()
+         T_description = input(f"\n{yellow}Describe Your Problem{reset}  ").lower()
+         
+
          if T_description.strip() == "":
-             print("Empty Description: describe your problem\n")
+             print(f"{red}Empty Description: describe your problem{reset}\n")
          else:
              break
+        
+             
 
-    
     reading = load_ticket(ticket)
     reading.append({"T_id": T_id, "T_description": T_description})
     save_ticket(reading)
-
+    show_suggestions(reading[-1])
+    
 Create_Tickets()
 
